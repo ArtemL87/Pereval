@@ -41,7 +41,7 @@ class Level(models.Model):
         return f'Сложность перевала:\nЗимой - {winter}\nЛетом - {summer}\nОсенью - {autumn}\nВесной - {spring}'
 
 
-class Pereval(models.Model):
+class PerevalAdd(models.Model):
     message_status = [
         ('new', 'Попало в очередь на модерацию'),
         ('pending', 'Модератор взял в работу'),
@@ -58,11 +58,11 @@ class Pereval(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     coords = models.ForeignKey('Coords', on_delete=models.CASCADE)
     level = models.ForeignKey('Level', on_delete=models.CASCADE)
+    image = models.ForeignKey('Image',on_delete=models.CASCADE)
 
 
 class Image(models.Model):
-    pereval = models.ForeignKey('Pereval', related_name="images", on_delete=models.CASCADE, blank=True, null=True)
-    title = models.CharField(blank=True, null=True)
+    title_image = models.CharField(blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
     data = models.ImageField()
 
