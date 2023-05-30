@@ -72,6 +72,8 @@ class Image(models.Model):
         ('6', 'Лощина'),
         ('7', 'Водораздел'),
         ('8', 'Склон'),
+        ('9', 'Подъем'),
+        ('10', 'Спуск')
     ]
     title_image = models.CharField(max_length=30, choices=element_pereval)
     date_added = models.DateTimeField(auto_now_add=True)
