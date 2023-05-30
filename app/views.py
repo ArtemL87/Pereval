@@ -7,7 +7,7 @@ from .serializers import PerevalAddSerializer
 
 
 class SubmitData(mixins.CreateModelMixin, generics.GenericAPIView):
-    queryset = Pereval.objects.all()
+    queryset = PerevalAdd.objects.all()
     serializer_class = PerevalAddSerializer
 
     def post(self, request, *args, **kwargs):

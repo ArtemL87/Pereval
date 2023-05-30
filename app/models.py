@@ -15,7 +15,7 @@ class User(models.Model):
 class Coords(models.Model):
     latitude = models.FloatField(max_length=10)
     longitude = models.FloatField(max_length=10)
-    height = models.IntegerField(5)
+    height = models.IntegerField()
 
     def __str__(self):
         return f'Широта - {latitude}, долгота - {longitude}, высота - {height}'
@@ -53,7 +53,7 @@ class PerevalAdd(models.Model):
     beauty_title = models.CharField(max_length=10, default='пер. ')
     title = models.CharField(max_length=30)
     other_titles = models.CharField(max_length=30, blank=True, null=True)
-    connect = models.CharField(default='')
+    connect = models.CharField(max_length=2, default='')
     add_time = models.TimeField(auto_now_add=True, blank=True, null=True)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     coords = models.ForeignKey('Coords', on_delete=models.CASCADE)
@@ -62,7 +62,18 @@ class PerevalAdd(models.Model):
 
 
 class Image(models.Model):
-    title_image = models.CharField(blank=True, null=True)
+    element_pereval = [
+        (None, '-------'),
+        ('1', 'Вершина'),
+        ('2', 'Седловина'),
+        ('3', 'Хребет'),
+        ('4', 'Обрыв'),
+        ('5', 'Терраса'),
+        ('6', 'Лощина'),
+        ('7', 'Водораздел'),
+        ('8', 'Склон'),
+    ]
+    title_image = models.CharField(max_length=30, choices=element_pereval)
     date_added = models.DateTimeField(auto_now_add=True)
     data = models.ImageField()
 

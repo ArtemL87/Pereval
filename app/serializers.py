@@ -30,7 +30,7 @@ class PerevalAddSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer()
     coords = CoordsSerializer()
     level = LevelSerializer()
-    images = ImageSerializer()
+    image = ImageSerializer()
 
     class Meta:
         model = PerevalAdd
@@ -56,9 +56,9 @@ class PerevalAddSerializer(serializers.HyperlinkedModelSerializer):
         level_new = validated_data.pop('level')
         level = Level.objects.create(**level_new)
 
-        images_new = validated_data.pop('images', [])
+        image_new = validated_data.pop('image', [])
         image = Image.objects.create(**image_new)
 
-        pereval_add = Pereval.objects.create(**validated_data, user=user, coords=coords, level=level, image=image)
+        pereval_add = PerevalAdd.objects.create(**validated_data, user=user, coords=coords, level=level, image=image)
 
         return pereval_add
