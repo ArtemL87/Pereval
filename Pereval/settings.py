@@ -87,6 +87,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': config('FSTR_DB_LOGIN', cast=str),
+        'PASSWORD': config('FSTR_DB_PASS', cast=str),
+        'HOST': config('FSTR_DB_HOST', cast=str),
+        'PORT': config('FSTR_DB_PORT', cast=str),
     }
 }
 
