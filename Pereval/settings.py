@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'Pereval.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pereval',
         'USER': config('FSTR_DB_LOGIN', cast=str),
         'PASSWORD': config('FSTR_DB_PASS', cast=str),
         'HOST': config('FSTR_DB_HOST', cast=str),

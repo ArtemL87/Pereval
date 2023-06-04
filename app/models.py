@@ -32,10 +32,10 @@ class Level(models.Model):
         ('3Б', '3Б')
     ]
 
-    winter = models.CharField(max_length=2, choices=difficulty_category, default=None)
-    summer = models.CharField(max_length=2, choices=difficulty_category, default=None)
-    autumn = models.CharField(max_length=2, choices=difficulty_category, default=None)
-    spring = models.CharField(max_length=2, choices=difficulty_category, default=None)
+    winter = models.CharField(max_length=2, choices=difficulty_category, default=None, blank=True, null=True)
+    summer = models.CharField(max_length=2, choices=difficulty_category, default=None, blank=True, null=True)
+    autumn = models.CharField(max_length=2, choices=difficulty_category, default=None, blank=True, null=True)
+    spring = models.CharField(max_length=2, choices=difficulty_category, default=None, blank=True, null=True)
 
     def __str__(self):
         return f'Сложность перевала:\nЗимой - {winter}\nЛетом - {summer}\nОсенью - {autumn}\nВесной - {spring}'
