@@ -7,5 +7,5 @@ from .views import SubmitData, ListData, UpData
 urlpatterns = [
     path('new/', SubmitData.as_view()),
     path('<int:pk>/', ListData.as_view()),
-    path('<int:pk/updata/', UpData.as_view()),
+    path('edit/<int:pk>/', UpData.as_view()),
 ]

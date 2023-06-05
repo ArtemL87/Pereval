@@ -85,23 +85,23 @@ class PerevalSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
-# class PerevalSerializer(serializers.HyperlinkedModelSerializer):
-#     user = UserSerializer()
-#     coords = CoordsSerializer()
-#     level = LevelSerializer()
-#     image = ImageSerializer()
-#
-#     class Meta:
-#         model = PerevalAdd
-#         fields = [
-#             'status',
-#             'beauty_title',
-#             'title',
-#             'other_titles',
-#             'connect',
-#             'add_time',
-#             'user',
-#             'coords',
-#             'level',
-#             'image',
-#         ]
+class PerevalUpdataSerializer(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer()
+    coords = CoordsSerializer()
+    level = LevelSerializer()
+    image = ImageSerializer()
+
+    class Meta:
+        model = PerevalAdd
+        fields = [
+            'status',
+            'beauty_title',
+            'title',
+            'other_titles',
+            'connect',
+            'add_time',
+            'user',
+            'coords',
+            'level',
+            'image',
+        ]

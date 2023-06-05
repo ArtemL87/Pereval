@@ -3,7 +3,10 @@ from rest_framework import mixins
 from rest_framework import generics
 
 from .models import PerevalAdd
-from .serializers import PerevalAddSerializer, PerevalSerializer
+from .serializers import \
+    PerevalAddSerializer, \
+    PerevalSerializer, \
+    PerevalUpdataSerializer
 
 
 class SubmitData(mixins.CreateModelMixin, generics.GenericAPIView):
@@ -22,9 +25,9 @@ class ListData(mixins.RetrieveModelMixin, generics.GenericAPIView):
         return self.retrieve(request, *args, **kwargs)
 
 
-class UpData(mixins.UpdateModelMixin, generics.GenericAPIView):
+class UpData(generics.RetrieveUpdateAPIView, generics.GenericAPIView):
     queryset = PerevalAdd.objects.all()
-    serializer_class = PerevalSerializer
+    serializer_class = PerevalUpdataSerializer
 
-    def get(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
