@@ -2,20 +2,20 @@ from django.db import models
 
 
 class User(models.Model):
-    email = models.CharField(unique=True, max_length=50)
-    fam = models.CharField(max_length=30)
-    name = models.CharField(max_length=30)
+    email = models.CharField(max_length=50, blank=True, null=True)
+    fam = models.CharField(max_length=30, blank=True, null=True)
+    name = models.CharField(max_length=30, blank=True, null=True)
     otc = models.CharField(max_length=30, blank=True, null=True)
-    phone = models.CharField(max_length=12)
+    phone = models.CharField(max_length=12, blank=True, null=True)
 
-    def __str__(self):
-        return f'{fam} {name} {otc}'
+    # def __str__(self):
+    #     return f'{fam} {name} {otc}'
 
 
 class Coords(models.Model):
-    latitude = models.FloatField(max_length=10)
-    longitude = models.FloatField(max_length=10)
-    height = models.IntegerField()
+    latitude = models.FloatField(max_length=10, blank=True, null=True)
+    longitude = models.FloatField(max_length=10, blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f'Широта - {latitude}, долгота - {longitude}, высота - {height}'
@@ -23,7 +23,6 @@ class Coords(models.Model):
 
 class Level(models.Model):
     difficulty_category = [
-        (None, '--'),
         ('1А', '1А'),
         ('1Б', '1Б'),
         ('2А', '2А'),
@@ -50,10 +49,10 @@ class PerevalAdd(models.Model):
     ]
 
     status = models.CharField(max_length=50, choices=message_status, default='new')
-    beauty_title = models.CharField(max_length=10, default='пер. ')
-    title = models.CharField(max_length=30)
+    beauty_title = models.CharField(max_length=10, default='пер. ', blank=True, null=True)
+    title = models.CharField(max_length=30, blank=True, null=True)
     other_titles = models.CharField(max_length=30, blank=True, null=True)
-    connect = models.CharField(max_length=2, default='')
+    connect = models.CharField(max_length=2, default='', blank=True, null=True)
     add_time = models.TimeField(auto_now_add=True, blank=True, null=True)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     coords = models.ForeignKey('Coords', on_delete=models.CASCADE)
@@ -63,7 +62,6 @@ class PerevalAdd(models.Model):
 
 class Image(models.Model):
     element_pereval = [
-        (None, '-------'),
         ('1', 'Вершина'),
         ('2', 'Седловина'),
         ('3', 'Хребет'),
@@ -75,8 +73,8 @@ class Image(models.Model):
         ('9', 'Подъем'),
         ('10', 'Спуск')
     ]
-    title_image = models.CharField(max_length=30, choices=element_pereval)
+    title_image = models.CharField(max_length=30, choices=element_pereval, default=None, blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    data = models.ImageField()
+    data = models.ImageField(blank=True, null=True)
 
 # Create your models here.

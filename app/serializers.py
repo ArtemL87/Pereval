@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from .models import User, Coords, PerevalAdd, Image, Level
 
 
@@ -85,11 +86,11 @@ class PerevalSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
-class PerevalUpdataSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer()
-    coords = CoordsSerializer()
-    level = LevelSerializer()
-    image = ImageSerializer()
+class PerevalUpdataSerializer(WritableNestedModelSerializer):
+    user = UserSerializer(allow_null=True, read_only=True)
+    coords = CoordsSerializer(allow_null=True)
+    level = LevelSerializer(allow_null=True)
+    image = ImageSerializer(allow_null=True)
 
     class Meta:
         model = PerevalAdd
@@ -105,3 +106,20 @@ class PerevalUpdataSerializer(serializers.HyperlinkedModelSerializer):
             'level',
             'image',
         ]
+
+    # def partial_update(self, validated_data):
+    #     user_new = validated_data.pop('user')
+    #     user = User.objects.create(**user_new)
+    #
+    #     coords_new = validated_data.pop('coords')
+    #     coords = Coords.objects.create(**coords_new)
+    #
+    #     level_new = validated_data.pop('level')
+    #     level = Level.objects.create(**level_new)
+    #
+    #     image_new = validated_data.pop('image', [])
+    #     image = Image.objects.create(**image_new)
+    #
+    #     pereval_add = PerevalAdd.objects.create(**validated_data, user=user, coords=coords, level=level, image=image)
+    #
+    #     return pereval_add

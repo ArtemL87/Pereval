@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from rest_framework import mixins
-from rest_framework import generics
+import django_filters.rest_framework
+from rest_framework import mixins, generics
+from rest_framework.exceptions import ValidationError
 
-from .models import PerevalAdd
+from .models import PerevalAdd, User
 from .serializers import \
     PerevalAddSerializer, \
     PerevalSerializer, \
@@ -25,9 +25,22 @@ class ListData(mixins.RetrieveModelMixin, generics.GenericAPIView):
         return self.retrieve(request, *args, **kwargs)
 
 
-class UpData(generics.RetrieveUpdateAPIView, generics.GenericAPIView):
+class UpData(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
     queryset = PerevalAdd.objects.all()
     serializer_class = PerevalUpdataSerializer
 
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
     def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+        instance = self.get_object()
+        if instance.status != 'new':
+            raise ValidationError("This entry has already been taken for moderation")
+        else:
+            return self.partial_update(request, *args, **kwargs)
+
+
+class UserList(generics.ListAPIView):
+    queryset = PerevalAdd.objects.all()
+    serializer_class = PerevalAddSerializer
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
