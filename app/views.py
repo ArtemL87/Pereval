@@ -1,4 +1,4 @@
-import django_filters.rest_framework
+from django_filters import rest_framework as filters
 from rest_framework import mixins, generics
 from rest_framework.exceptions import ValidationError
 
@@ -43,4 +43,5 @@ class UpData(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.Generi
 class UserList(generics.ListAPIView):
     queryset = PerevalAdd.objects.all()
     serializer_class = PerevalAddSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = ['user__email',]
